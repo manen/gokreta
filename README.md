@@ -1,6 +1,6 @@
 # gokreta
 
-Golang bindings for the [Kréta API](https://github.com/bczsalba/ekreta-docs-v3)
+Golang wrapper for the [Kréta API](https://github.com/bczsalba/ekreta-docs-v3)
 
 ## Sources
 
