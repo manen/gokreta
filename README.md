@@ -1,4 +1,4 @@
-# gokreta
+# GoKreta
 
 Golang wrapper for the Kréta API
 
