@@ -12,19 +12,9 @@ import (
 // Session represents a Kréta session
 type Session struct {
 	userAgent string
-	client    *http.Client
 
 	token        string `json:"accessToken"`
 	refreshToken string
-}
-
-type customTransport struct {
-	UserAgent string
-}
-
-func (t *customTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Add("User-Agent", t.UserAgent)
-	return http.DefaultTransport.RoundTrip(req)
 }
 
 // NewSession initializes a new Kréta session
@@ -37,10 +27,11 @@ func NewSession(userAgent, schoolID, studentID, password string) *Session {
 	body.Set("grant_type", "password")
 	body.Set("client_id", "kreta-ellenorzo-mobile")
 
-	client := &http.Client{Transport: &customTransport{UserAgent: userAgent}}
+	client := &http.Client{}
 
 	req, err := http.NewRequest("POST", endpoints.Token, strings.NewReader(body.Encode()))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("User-Agent", userAgent)
 	if err != nil {
 		panic(err)
 	}
@@ -52,7 +43,6 @@ func NewSession(userAgent, schoolID, studentID, password string) *Session {
 
 	s := &Session{
 		userAgent:    userAgent,
-		client:       client,
 		token:        "",
 		refreshToken: "",
 	}
