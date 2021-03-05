@@ -99,8 +99,8 @@ const (
 	// Important: Replace "*" with the teacher ID
 	HeadTeacherData = Checker + "Felhasznalok/Alkalmazottak/Tanarok/Osztalyfonokok?Uids=*"
 
-	// Evals is the endpoint used to request evaluations
-	Evals = Own + "Ertekelesek"
+	// Grades is the endpoint used to request evaluations
+	Grades = Own + "Ertekelesek"
 	// Absences is the endpoint used to request absences
 	Absences = Own + "Mulasztasok"
 	// Timetable is the endpoint used to request the user's timetable
