@@ -1,25 +1,25 @@
 package kreta
 
-func (s *Session) Grades() {}
+func (s *Session) Grades() (*Grades, error) {}
 
-func (s *Session) Absences() {}
+func (s *Session) Absences() (*Absences, error) {}
 
-func (s *Session) Timetable() {}
+func (s *Session) Timetable() (*Timetable, error) {}
 
-func (s *Session) Notes() {}
+func (s *Session) Notes() (*Notes, error) {}
 
-func (s *Session) Notices() {}
+func (s *Session) Notices() (*Notices, error) {}
 
-func (s *Session) Tests() {}
+func (s *Session) Tests() (*Tests, error) {}
 
-func (s *Session) Groups() {}
+func (s *Session) Groups() (*Groups, error) {}
 
-func (s *Session) UserData() {}
+func (s *Session) UserData() (*UserData, error) {}
 
-func (s *Session) YearOrder() {}
+func (s *Session) YearOrder() (*YearOrder, error) {}
 
-func (s *Session) Homework() {}
+func (s *Session) Homework() (*Homework, error) {}
 
-func (s *Session) HomeworkComments(id string) {}
+func (s *Session) HomeworkComments(id string) (*HomeworkComments, error) {}
 
-func (s *Session) HomeworkComment(id, comment string) {}
+func (s *Session) HomeworkComment(id, comment string) error {}
