@@ -49,8 +49,24 @@ func (s *Session) Absences(from, to time.Time) ([]*Absence, error) {
 	return absences, nil
 }
 
-func (s *Session) Timetable() (*Timetable, error) {
-	return nil, nil
+func (s *Session) Timetable(from, to time.Time) ([]*Lesson, error) {
+	vals := &url.Values{}
+
+	vals.Add("datumTol", from.Format("2020-09-01T00-00-00"))
+	vals.Add("datumIg", to.Format("2020-09-01T00-00-00"))
+
+	res, err := s.restGet(endpoints.Absences, vals.Encode(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var timetable []*Lesson
+	err = json.NewDecoder(strings.NewReader(res)).Decode(&timetable)
+	if err != nil {
+		return nil, err
+	}
+
+	return timetable, nil
 }
 
 func (s *Session) Notes() (*Notes, error) {

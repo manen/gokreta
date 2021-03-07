@@ -89,7 +89,50 @@ type Absence struct {
 	ID             string         `json:"Uid"`
 }
 
-type Timetable struct{}
+type LessonStatus struct {
+	ID    string `json:"Uid"`
+	Desc  string `json:"Leiras"`
+	Title string `json:"Nev"`
+}
+
+type LessonClassGroup struct {
+	ID    string `json:"Uid"`
+	Title string `json:"Nev"`
+}
+
+type LessonStudentPresence struct {
+	ID    string `json:"Uid"`
+	Desc  string `json:"Leiras"`
+	Title string `json:"Nev"`
+}
+
+type LessonTopic struct {
+	ID    string `json:"Uid"`
+	Desc  string `json:"Leiras"`
+	Title string `json:"Nev"`
+}
+
+type Lesson struct {
+	Status                 *LessonStatus          `json:"Allapot"`
+	TestIDs                []string               `json:"BejelentettSzamonkeresUids"`
+	TestID                 []string               `json:"BejelentettSzamonkeresUid"`
+	Date                   *time.Time             `json:"Datum"`
+	ViceTeacherName        string                 `json:"HelyettesTanarNeve"`
+	StudentHomeworkEnabled bool                   `json:"IsTanuloHazifeladatEnabled"`
+	From                   *time.Time             `json:"KezdetIdopont"`
+	Title                  string                 `json:"Nev"`
+	Hours                  int                    `json:"Oraszam"`
+	YearlyHours            int                    `json:"OraEvesSorszama"`
+	ClassGroup             *ClassGroup            `json:"OsztalyCsoport"`
+	HomeworkID             string                 `json:"HaziFeladatUid"`
+	HomeworkSolved         bool                   `json:"IsHaziFeladatMegoldva"`
+	TeacherName            string                 `json:"TanarNeve"`
+	Subject                *Subject               `json:"Tantargy"`
+	StudentPresence        *LessonStudentPresence `json:"TanuloJelenlet"`
+	Topic                  *LessonTopic           `json:"Tema"`
+	ID                     string                 `json:"Uid"`
+	To                     *time.Time             `json:"VegIdopont"`
+}
 
 type Notes struct{}
 
