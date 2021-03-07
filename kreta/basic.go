@@ -29,8 +29,24 @@ func (s *Session) Grades(from, to time.Time) ([]*Grade, error) {
 	return grades, nil
 }
 
-func (s *Session) Absences() (*Absences, error) {
-	return nil, nil
+func (s *Session) Absences(from, to time.Time) ([]*Absence, error) {
+	vals := &url.Values{}
+
+	vals.Add("datumTol", from.Format("2020-09-01T00-00-00"))
+	vals.Add("datumIg", to.Format("2020-09-01T00-00-00"))
+
+	res, err := s.restGet(endpoints.Absences, vals.Encode(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var absences []*Absence
+	err = json.NewDecoder(strings.NewReader(res)).Decode(&absences)
+	if err != nil {
+		return nil, err
+	}
+
+	return absences, nil
 }
 
 func (s *Session) Timetable() (*Timetable, error) {

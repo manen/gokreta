@@ -35,10 +35,10 @@ type Grade struct {
 	TeacherName      string      `json:"ErtekeloTanarNeve"`
 	GradeType        *GradeType  `json:"ErtekFajta"`
 	Kind             string      `json:"Jelleg"`
-	DateWritten      *time.Time  `json:"KeszitesDatuma"`
+	DateRecorded     *time.Time  `json:"KeszitesDatuma"`
 	DateSeen         *time.Time  `json:"LattamozasDatuma"`
 	Mode             *GradeMode  `json:"Mod"`
-	DateAdded        *time.Time  `json:"RogzitesDatuma"`
+	Date             *time.Time  `json:"RogzitesDatuma"`
 	Weight           int         `json:"SulySzazalekErteke"`
 	Value            int         `json:"SzamErtek"`
 	ValueString      string      `json:"SzovegesErtek"`
@@ -49,7 +49,45 @@ type Grade struct {
 	ClassGroup       *ClassGroup `json:"OsztalyCsoport"`
 }
 
-type Absences struct{}
+type AbsenceCertType struct {
+	ID    string `json:"Uid"`
+	Desc  string `json:"Leiras"`
+	Title string `json:"Nev"`
+}
+
+type AbsenceMode struct {
+	ID    string `json:"Uid"`
+	Desc  string `json:"Leiras"`
+	Title string `json:"Nev"`
+}
+
+type AbsenceLesson struct {
+	From  *time.Time `json:"KezdoDatum"`
+	To    *time.Time `json:"VegDatum"`
+	Hours int        `json:"Oraszam"`
+}
+
+type AbsenceType struct {
+	ID    string `json:"Uid"`
+	Desc  string `json:"Leiras"`
+	Title string `json:"Nev"`
+}
+
+type Absence struct {
+	CertStatus string           `json:"IgazolasAllapota"`
+	CertType   *AbsenceCertType `json:"IgazolasTipusa"`
+	// Type assumed from context
+	DelayInMinutes int            `json:"KesesPercben"`
+	DateRecorded   *time.Time     `json:"KeszitesDatuma"`
+	Mode           *AbsenceMode   `json:"Mod"`
+	Date           *time.Time     `json:"Datum"`
+	Lesson         *AbsenceLesson `json:"Ora"`
+	TeacherName    string         `json:"RogzitoTanarNeve"`
+	Subject        *Subject       `json:"Tantargy"`
+	Type           *AbsenceType   `json:"Tipus"`
+	ClassGroup     *ClassGroup    `json:"OsztalyCsoport"`
+	ID             string         `json:"Uid"`
+}
 
 type Timetable struct{}
 
