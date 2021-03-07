@@ -1,25 +1,74 @@
 package kreta
 
-func (s *Session) Grades() (*Grades, error) {}
+import (
+	"encoding/json"
+	"net/url"
+	"strings"
+	"time"
 
-func (s *Session) Absences() (*Absences, error) {}
+	"github.com/manen/gokreta/endpoints"
+)
 
-func (s *Session) Timetable() (*Timetable, error) {}
+func (s *Session) Grades(from, to time.Time) ([]*Grade, error) {
+	vals := &url.Values{}
 
-func (s *Session) Notes() (*Notes, error) {}
+	vals.Add("datumTol", from.Format("2020-09-01T00-00-00"))
+	vals.Add("datumIg", to.Format("2020-09-01T00-00-00"))
 
-func (s *Session) Notices() (*Notices, error) {}
+	res, err := s.restGet(endpoints.Grades, vals.Encode(), nil)
+	if err != nil {
+		return nil, err
+	}
 
-func (s *Session) Tests() (*Tests, error) {}
+	var grades []*Grade
+	err = json.NewDecoder(strings.NewReader(res)).Decode(&grades)
+	if err != nil {
+		return nil, err
+	}
 
-func (s *Session) Groups() (*Groups, error) {}
+	return grades, nil
+}
 
-func (s *Session) UserData() (*UserData, error) {}
+func (s *Session) Absences() (*Absences, error) {
+	return nil, nil
+}
 
-func (s *Session) YearOrder() (*YearOrder, error) {}
+func (s *Session) Timetable() (*Timetable, error) {
+	return nil, nil
+}
 
-func (s *Session) Homework() (*Homework, error) {}
+func (s *Session) Notes() (*Notes, error) {
+	return nil, nil
+}
 
-func (s *Session) HomeworkComments(id string) (*HomeworkComments, error) {}
+func (s *Session) Notices() (*Notices, error) {
+	return nil, nil
+}
 
-func (s *Session) HomeworkComment(id, comment string) error {}
+func (s *Session) Tests() (*Tests, error) {
+	return nil, nil
+}
+
+func (s *Session) Groups() (*Groups, error) {
+	return nil, nil
+}
+
+func (s *Session) UserData() (*UserData, error) {
+	return nil, nil
+}
+
+func (s *Session) YearOrder() (*YearOrder, error) {
+	return nil, nil
+}
+
+func (s *Session) Homework() (*Homework, error) {
+	return nil, nil
+}
+
+func (s *Session) HomeworkComments(id string) (*HomeworkComments, error) {
+	return nil, nil
+}
+
+func (s *Session) HomeworkComment(id, comment string) error {
+	return nil
+}

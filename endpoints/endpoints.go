@@ -13,7 +13,10 @@ const (
 	// dedicated school server
 	//
 	// Important: Replace "$" with the institute ID
-	Base = "https://$.ekreta.hu/"
+	//
+	// Yes, sometimes it's supposed to be ekreta.hu instead of e-kreta.hu. No, I don't care.
+	// Open a PR or something
+	Base = "https://$.e-kreta.hu/"
 
 	//! Sub-base URLs
 
