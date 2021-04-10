@@ -9,16 +9,21 @@ import (
 	"github.com/manen/gokreta/kreta"
 )
 
-var s *kreta.Session
+var s kreta.Session
 
 func TestAuth(t *testing.T) {
-	s = kreta.NewSession(
+	sa, err := kreta.NewSession(
 		"hu.ekreta.student/1.0.5/Android/0/0",
 		os.Getenv("SCHOOL"),
 		os.Getenv("STUDENT"),
 		os.Getenv("PASSWORD"),
 		true,
 	)
+	if err != nil {
+		panic(err)
+	}
+
+	s = sa
 }
 
 func TestGrades(t *testing.T) {
