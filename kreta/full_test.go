@@ -17,6 +17,7 @@ func TestAuth(t *testing.T) {
 		os.Getenv("SCHOOL"),
 		os.Getenv("STUDENT"),
 		os.Getenv("PASSWORD"),
+		true,
 	)
 }
 

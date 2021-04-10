@@ -24,7 +24,7 @@
 | -------------- | ----- | ----- |
 | School list    | ✅    | ✅    |
 | Authentication | ✅    | ✅    |
-| Basics         | ✅    | ✅    |
+| Basics         | ➖    | ✅    |
 | Messaging      | ❌    | ✅    |
 
 Current version: 1.0.0

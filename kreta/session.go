@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/manen/gokreta/endpoints"
 )
@@ -21,7 +22,7 @@ type Session struct {
 }
 
 // NewSession initializes a new Kréta session
-func NewSession(userAgent, schoolID, studentID, password string) *Session {
+func NewSession(userAgent, schoolID, studentID, password string, autoRenew bool) (Session, error) {
 	body := url.Values{}
 
 	body.Set("userName", studentID)
@@ -36,15 +37,15 @@ func NewSession(userAgent, schoolID, studentID, password string) *Session {
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("User-Agent", userAgent)
 	if err != nil {
-		panic(err)
+		return Session{}, err
 	}
 
 	res, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		return Session{}, err
 	}
 
-	s := &Session{
+	s := Session{
 		userAgent:    userAgent,
 		schoolID:     schoolID,
 		studentID:    studentID,
@@ -60,13 +61,52 @@ func NewSession(userAgent, schoolID, studentID, password string) *Session {
 	buf := new(strings.Builder)
 	_, err = io.Copy(buf, res.Body)
 	if err != nil {
-		panic(err)
+		return Session{}, err
 	}
 
 	err = json.Unmarshal([]byte(buf.String()), &fuckGo)
+	if err != nil {
+		return Session{}, err
+	}
 
 	s.token = fuckGo.AccessToken
 	s.refreshToken = fuckGo.RefreshToken
 
-	return s
+	go func() {
+		time.Sleep(25 * time.Minute)
+		s.RenewSession()
+	}()
+
+	return s, nil
+}
+
+func (s *Session) RenewSession() error {
+	vals := url.Values{}
+
+	vals.Add("institute_code", s.schoolID)
+	vals.Add("refresh_token", s.refreshToken)
+	vals.Add("grant_type", "refresh_token")
+	vals.Add("client_id", "kreta-ellenorzo-mobile")
+
+	res, err := s.restGet(endpoints.Token, vals.Encode(), map[string]string{
+		"Content-Type": "application/x-www-form-urlencoded",
+	})
+	if err != nil {
+		return err
+	}
+
+	fuckGo := &struct {
+		AccessToken  string `json:"access_token"`
+		RefreshToken string `json:"refresh_token"`
+	}{}
+
+	err = json.Unmarshal([]byte(res), &fuckGo)
+	if err != nil {
+		return err
+	}
+
+	s.token = fuckGo.AccessToken
+	s.refreshToken = fuckGo.RefreshToken
+
+	return nil
 }
