@@ -84,6 +84,21 @@ func (s *Session) Notes() ([]Note, error) {
 	return notes, nil
 }
 
+func (s *Session) UserData() (UserData, error) {
+	res, err := s.restGet(endpoints.UserData, "", nil)
+	if err != nil {
+		return UserData{}, err
+	}
+
+	var data UserData
+	err = json.NewDecoder(strings.NewReader(res)).Decode(&data)
+	if err != nil {
+		return UserData{}, err
+	}
+
+	return data, nil
+}
+
 /*
 func (s *Session) Notices() (Notices, error) {
 	return nil, nil
@@ -94,10 +109,6 @@ func (s *Session) Tests() (Tests, error) {
 }
 
 func (s *Session) Groups() (Groups, error) {
-	return nil, nil
-}
-
-func (s *Session) UserData() (UserData, error) {
 	return nil, nil
 }
 
