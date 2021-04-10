@@ -2,7 +2,6 @@ package kreta
 
 import (
 	"encoding/json"
-	"log"
 	"net/url"
 	"strings"
 	"time"
@@ -90,8 +89,6 @@ func (s *Session) UserData() (UserData, error) {
 	if err != nil {
 		return UserData{}, err
 	}
-
-	log.Println(string(res))
 
 	var data UserData
 	err = json.NewDecoder(strings.NewReader(res)).Decode(&data)
