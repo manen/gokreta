@@ -46,3 +46,12 @@ func TestTimetable(t *testing.T) {
 
 	log.Println(ti[0].Subject.Title)
 }
+
+func TestUserData(t *testing.T) {
+	ud, err := s.UserData()
+	if err != nil {
+		panic(err)
+	}
+
+	log.Println(ud.Guardians[0].TelephoneNumber)
+}
