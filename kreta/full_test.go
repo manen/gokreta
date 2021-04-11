@@ -61,3 +61,12 @@ func TestUserData(t *testing.T) {
 
 	log.Println(ud.Guardians[0].TelephoneNumber)
 }
+
+func TestSchools(t *testing.T) {
+	schools, err := s.Schools()
+	if err != nil {
+		panic(err)
+	}
+
+	log.Println(schools[69].ID)
+}
