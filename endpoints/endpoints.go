@@ -13,7 +13,10 @@ const (
 	// dedicated school server
 	//
 	// Important: Replace "$" with the institute ID
-	Base = "https://$.ekreta.hu/"
+	//
+	// Yes, sometimes it's supposed to be ekreta.hu instead of e-kreta.hu. No, I don't care.
+	// Open a PR or something
+	Base = "https://$.e-kreta.hu/"
 
 	//! Sub-base URLs
 
@@ -99,8 +102,8 @@ const (
 	// Important: Replace "*" with the teacher ID
 	HeadTeacherData = Checker + "Felhasznalok/Alkalmazottak/Tanarok/Osztalyfonokok?Uids=*"
 
-	// Evals is the endpoint used to request evaluations
-	Evals = Own + "Ertekelesek"
+	// Grades is the endpoint used to request evaluations
+	Grades = Own + "Ertekelesek"
 	// Absences is the endpoint used to request absences
 	Absences = Own + "Mulasztasok"
 	// Timetable is the endpoint used to request the user's timetable

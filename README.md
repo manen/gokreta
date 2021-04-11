@@ -10,6 +10,10 @@ Our sources:
 - [bczsalba](https://github.com/bczsalba)'s [API docs](https://github.com/bczsalba/ekreta-docs-v3)
 - [Filc Napló](https://filcnaplo.hu)'s [implementation](https://github.com/filc/naplo/blob/dev/lib/kreta/api.dart)
 
+## Features
+
+See [this](FEATURES.md)
+
 ## License
 
 [GPL 3.0](LICENSE.txt)
